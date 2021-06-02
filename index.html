@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>身份证号码校验示例</title>
+    <style>
+      .form-container {
+        font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB,
+          Microsoft YaHei, Arial, sans-serif;
+        color: #606266;
+        font-size: 14px;
+        width: 300px;
+        margin: 40px;
+      }
+      .form-container .form-item {
+        display: flex;
+        height: 40px;
+        line-height: 40px;
+      }
+      .form-container .form-item .label {
+        width: 80px;
+        text-align: left;
+      }
+      input {
+        display: inline-block;
+        width: 200px;
+        height: 40px;
+        line-height: 40px;
+        background-color: #fff;
+        background-image: none;
+        border-radius: 4px;
+        border: 1px solid #dcdfe6;
+        box-sizing: border-box;
+        padding: 0 15px;
+        appearance: none;
+        transition: all 0.1s ease-in;
+      }
+      input:focus {
+        border-color: #409eff;
+        outline: 0;
+      }
+      input::placeholder {
+        color: #dcdfe6;
+      }
+      .result span.error {
+        color: #f56c6c;
+      }
+      .result span.success {
+        color: #409eff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <div class="form-item">
+        <div class="label">身份证号：</div>
+        <input
+          type="text"
+          id="idcard-input"
+          placeholder="请输入待校验身份证号"
+        />
+      </div>
+      <div class="form-item">
+        <div class="label">校验结果：</div>
+        <div class="result"><span class="error">不通过</span></div>
+      </div>
+    </div>
+  </body>
+  <script type="module">
+    import verifyCardNum from "./index.js";
+
+    const verifyCard = (e) => {
+      const inputValue = e.target.value.trim();
+      if (inputValue.length !== 18) return;
+
+      const result = verifyCardNum(inputValue);
+      const valueContainer = document.querySelector(".result>span");
+      if (result) {
+        valueContainer.className = "success";
+        valueContainer.textContent = "通过";
+      } else {
+        valueContainer.className = "error";
+        valueContainer.textContent = "不通过";
+      }
+    };
+
+    document
+      .getElementById("idcard-input")
+      .addEventListener("input", verifyCard, false);
+  </script>
+</html>

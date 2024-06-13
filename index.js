@@ -56,7 +56,7 @@ const verifyCheckCode = (cardNum) => {
   // 累加值对11取余
   const val = sum % 11;
   // 能与换算关系对应上则返回true，否则返回false
-  if (pattern[val] !== checkCode) return false;
+  if (String(pattern[val]) !== checkCode) return false;
   return true;
 };
 
